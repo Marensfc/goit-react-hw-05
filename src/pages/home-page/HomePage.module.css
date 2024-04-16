@@ -1,0 +1,9 @@
+.homeContainer {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.movieList {
+  list-style: disc;
+  padding-left: 30px;
+}
