@@ -1,0 +1,15 @@
+.reviewsList {
+  margin-top: 20px;
+  margin-left: 30px;
+  list-style: disc;
+}
+
+.reviewItem {
+  margin-bottom: 20px;
+}
+
+.reviewAuthor {
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 16px;
+}

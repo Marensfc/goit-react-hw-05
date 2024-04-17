@@ -37,6 +37,8 @@ const MoviesPage = () => {
         setMovies([]);
         const respData = await fetchMoviesByQuery(query);
         setMovies(respData.results);
+
+        checkIsTheResultEmpty(respData.results);
         setError(false);
       } catch (error) {
         setMovies([]);
@@ -48,6 +50,12 @@ const MoviesPage = () => {
 
     load();
   }, [query]);
+
+  const checkIsTheResultEmpty = result => {
+    if (result.length === 0) {
+      alert("Sorry, there are no results for your query");
+    }
+  };
 
   return (
     <>

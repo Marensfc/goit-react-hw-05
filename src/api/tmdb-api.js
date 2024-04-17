@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 axios.defaults.baseURL = "https://api.themoviedb.org/3/";
@@ -19,5 +20,20 @@ export const fetchMoviesByQuery = async query => {
     params: { ...options.params, query: query },
   });
 
+  return response.data;
+};
+
+export const fetchMovieById = async id => {
+  const response = await axios.get(`movie/${id}`, options);
+  return response.data;
+};
+
+export const fetchMovieCast = async id => {
+  const response = await axios.get(`movie/${id}/credits`, options);
+  return response.data;
+};
+
+export const fetchMovieReviews = async id => {
+  const response = await axios.get(`movie/${id}/reviews`, options);
   return response.data;
 };
