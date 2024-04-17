@@ -1,14 +1,17 @@
 import css from "./MovieDetailsPage.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useParams, Link, Outlet, useLocation } from "react-router-dom";
 import { fetchMovieById } from "../../api/tmdb-api";
 import { FaArrowLeftLong } from "react-icons/fa6";
 
 import Genres from "../../components/genres/Genres";
 import Error from "../../components/error/Error";
+import Loader from "../../components/loader/Loader";
 
 const MovieDetailsPage = () => {
   const location = useLocation();
+  const backLinkRef = location.state ?? "/movies";
+
   console.log(location);
 
   const { movieId } = useParams();
@@ -32,7 +35,7 @@ const MovieDetailsPage = () => {
 
   return (
     <>
-      <Link to="/" className={css.backLink}>
+      <Link to={backLinkRef} className={css.backLink}>
         <FaArrowLeftLong /> Go back
       </Link>
       <div className={css.detailsPageContainer}>
@@ -62,14 +65,20 @@ const MovieDetailsPage = () => {
         <p>Additional information</p>
         <ul className={css.movieList}>
           <li>
-            <Link to="cast">Cast</Link>
+            <Link to="cast" state={location.state}>
+              Cast
+            </Link>
           </li>
           <li>
-            <Link to="reviews">Reviews</Link>
+            <Link to="reviews" state={location.state}>
+              Reviews
+            </Link>
           </li>
         </ul>
       </div>
-      <Outlet />
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

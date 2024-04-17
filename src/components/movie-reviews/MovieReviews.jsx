@@ -9,6 +9,7 @@ import Loader from "../loader/Loader";
 const MovieReviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
+  const [emptyReviews, setEmptyReviews] = useState(false);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState();
 
@@ -18,11 +19,13 @@ const MovieReviews = () => {
         setLoader(true);
         const respData = await fetchMovieReviews(movieId);
         setReviews(respData.results);
-        console.log(respData.results);
+        console.log(respData);
+
+        checkIsTheReviewsEmpty(respData.results);
         setError(false);
       } catch (error) {
-        setReviews([]);
         setError(true);
+        setReviews([]);
       } finally {
         setLoader(false);
       }
@@ -31,10 +34,19 @@ const MovieReviews = () => {
     load();
   }, []);
 
+  const checkIsTheReviewsEmpty = results => {
+    if (results.length === 0) {
+      setEmptyReviews(true);
+    } else {
+      setEmptyReviews(false);
+    }
+  };
+
   return (
     <>
-      {error && <MovieReviews />}
+      {error && <Error />}
       {loader && <Loader />}
+      {emptyReviews && <p>We don`t have any reviews for this movie</p>}
       <ul className={css.reviewsList}>
         {reviews.map(review => (
           <li key={review.id} className={css.reviewItem}>

@@ -1,13 +1,16 @@
 import css from "./MoviesPage.module.css";
 import { fetchMoviesByQuery } from "../../api/tmdb-api";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import Error from "../../components/error/Error";
 import MovieList from "../../components/movie-list/MovieList";
 import Loader from "../../components/loader/Loader";
 
 const MoviesPage = () => {
-  const [query, setQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("query");
+
   const [movies, setMovies] = useState([]);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
@@ -23,7 +26,7 @@ const MoviesPage = () => {
       return;
     }
 
-    setQuery(value);
+    setSearchParams({ query: value });
 
     form.reset();
   };
