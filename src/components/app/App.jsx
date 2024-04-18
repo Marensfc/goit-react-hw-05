@@ -7,8 +7,8 @@ import MoviesPage from "../../pages/movies-page/MoviesPage";
 import NotFoundPage from "../../pages/not-found-page/NotFoundPage";
 import MovieDetailsPage from "../../pages/movie-details-page/MovieDetailsPage";
 
-import Header from "../header/Header";
 import Loader from "../loader/Loader";
+import Navigation from "../navigation/Navigation";
 
 const MovieCast = lazy(() => import("../movie-cast/MovieCast"));
 const MovieReviews = lazy(() => import("../movie-reviews/MovieReviews"));
@@ -16,7 +16,10 @@ const MovieReviews = lazy(() => import("../movie-reviews/MovieReviews"));
 function App() {
   return (
     <>
-      <Header />
+      <header className={css.header}>
+        <Navigation />
+      </header>
+
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<HomePage />} />

@@ -1,5 +1,5 @@
 import css from "./MovieDetailsPage.module.css";
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { useParams, Link, Outlet, useLocation } from "react-router-dom";
 import { fetchMovieById } from "../../api/tmdb-api";
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -10,9 +10,7 @@ import Loader from "../../components/loader/Loader";
 
 const MovieDetailsPage = () => {
   const location = useLocation();
-  const backLinkRef = location.state ?? "/movies";
-
-  console.log(location);
+  const backLinkRef = useRef(location.state ?? "/movies");
 
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
@@ -31,7 +29,7 @@ const MovieDetailsPage = () => {
     };
 
     load();
-  }, []);
+  }, [movie, movieId]);
 
   return (
     <>
