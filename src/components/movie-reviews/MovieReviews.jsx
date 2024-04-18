@@ -19,7 +19,6 @@ const MovieReviews = () => {
         setLoader(true);
         const respData = await fetchMovieReviews(movieId);
         setReviews(respData.results);
-        console.log(respData);
 
         checkIsTheReviewsEmpty(respData.results);
         setError(false);
@@ -32,7 +31,7 @@ const MovieReviews = () => {
     };
 
     load();
-  }, []);
+  }, [movieId]);
 
   const checkIsTheReviewsEmpty = results => {
     if (results.length === 0) {

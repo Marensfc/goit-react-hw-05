@@ -29,11 +29,11 @@ const MovieDetailsPage = () => {
     };
 
     load();
-  }, [movie, movieId]);
+  }, [movieId]);
 
   return (
     <>
-      <Link to={backLinkRef} className={css.backLink}>
+      <Link to={backLinkRef.current} className={css.backLink}>
         <FaArrowLeftLong /> Go back
       </Link>
       <div className={css.detailsPageContainer}>
